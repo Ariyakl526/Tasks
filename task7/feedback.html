@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Feedback Form</title>
+
+    <!-- FIX ENCODING -->
+    <meta charset="UTF-8">
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #f4f6f9;
+            text-align: center;
+        }
+
+        form {
+            background: white;
+            width: 300px;
+            margin: auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px #ccc;
+        }
+
+        input, textarea {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+        }
+
+        .error {
+            color: red;
+            font-size: 12px;
+        }
+
+        button {
+            padding: 10px;
+            background: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        .highlight {
+            background: #e0f7fa;
+        }
+    </style>
+</head>
+
+<body>
+
+<h2>💬 Feedback Form</h2>
+
+<form id="feedbackForm">
+
+    <!-- Name -->
+    <input type="text" id="name" placeholder="Enter Name"
+        onkeypress="validateName()"
+        onmouseover="highlight(this)"
+        onmouseout="removeHighlight(this)">
+    <div id="nameError" class="error"></div>
+
+    <!-- Email -->
+    <input type="email" id="email" placeholder="Enter Email"
+        onkeypress="validateEmail()"
+        onmouseover="highlight(this)"
+        onmouseout="removeHighlight(this)">
+    <div id="emailError" class="error"></div>
+
+    <!-- Message -->
+    <textarea id="message" placeholder="Your Feedback"
+        onkeypress="validateMessage()"
+        onmouseover="highlight(this)"
+        onmouseout="removeHighlight(this)"></textarea>
+    <div id="msgError" class="error"></div>
+
+    <!-- Submit (double click) -->
+    <button type="button" ondblclick="submitForm()">Submit</button>
+
+</form>
+
+<script>
+
+// Highlight
+function highlight(el) {
+    el.classList.add("highlight");
+}
+
+function removeHighlight(el) {
+    el.classList.remove("highlight");
+}
+
+// Validation Functions
+function validateName() {
+    let name = document.getElementById("name").value;
+
+    if (name.length < 3) {
+        document.getElementById("nameError").innerText = "Minimum 3 characters required";
+    } else {
+        document.getElementById("nameError").innerText = "";
+    }
+}
+
+function validateEmail() {
+    let email = document.getElementById("email").value;
+    let pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+
+    if (!email.match(pattern)) {
+        document.getElementById("emailError").innerText = "Invalid email format";
+    } else {
+        document.getElementById("emailError").innerText = "";
+    }
+}
+
+function validateMessage() {
+    let msg = document.getElementById("message").value;
+
+    if (msg.length < 10) {
+        document.getElementById("msgError").innerText = "Minimum 10 characters required";
+    } else {
+        document.getElementById("msgError").innerText = "";
+    }
+}
+
+// Submit Function
+function submitForm() {
+
+    let name = document.getElementById("name").value;
+    let email = document.getElementById("email").value;
+    let message = document.getElementById("message").value;
+
+    if (name === "" || email === "" || message === "") {
+        alert("⚠ Please fill all fields");
+        return;
+    }
+
+    alert("✅ Feedback Submitted Successfully!");
+
+    document.getElementById("feedbackForm").reset();
+}
+
+</script>
+
+</body>
+</html>
